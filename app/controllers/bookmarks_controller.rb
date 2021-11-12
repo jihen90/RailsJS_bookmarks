@@ -12,10 +12,11 @@ class BookmarksController < ApplicationController
   end
 
   def create
+    @bookmarks = Bookmark.all
     @bookmark = Bookmark.new(bookmark_params)
     respond_to do |format|
       if @bookmark.save!
-        format.html { redirect_to root_path}
+        format.js {render nothing: true}
       end
     end
   end
@@ -25,6 +26,21 @@ class BookmarksController < ApplicationController
   end
 
   def edit
+  end
+
+  def destroy
+    @bookmark.destroy
+    respond_to do |format|
+      format.html { redirect_to root_path}
+      format.json { head :no_content }
+    end
+  end
+
+  def update
+    respond_to do |format|
+      if @bookmark.update!(bookmark_params)
+        format.html {redirect_to root_path}
+      end
   end
 end
 
@@ -36,4 +52,4 @@ end
   def set_bookmark
     @bookmark = Bookmark.find(params[:id])
   end
-
+end
