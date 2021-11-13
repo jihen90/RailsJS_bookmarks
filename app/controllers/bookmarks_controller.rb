@@ -5,7 +5,8 @@ class BookmarksController < ApplicationController
     @bookmarks = Bookmark.all
     @bookmark = Bookmark.new
     @types = Type.all
-    @categories= Category.all
+    @categories = Category.all
+    @group_By_Types = Type.joins(:bookmarks).group(:name).count
   end
 
   def show
@@ -15,11 +16,11 @@ class BookmarksController < ApplicationController
     @bookmarks = Bookmark.all
     @bookmark = Bookmark.new(bookmark_params)
     respond_to do |format|
-      if @bookmark.save!
-        format.js {render nothing: true}
-      end
+    if @bookmark.save!
+    format.js {render nothing: true}
     end
   end
+end
 
   def new
     @bookmark = Bookmark.new

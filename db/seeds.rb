@@ -9,7 +9,8 @@
 require 'faker'
 5.times do
     Category.create!(
-    name: Faker::FunnyName.name
+    name: Faker::FunnyName.name,
+    visibility: rand(0..1)
     )
 end
 category = Category.all

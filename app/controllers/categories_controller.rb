@@ -1,7 +1,10 @@
 class CategoriesController < ApplicationController
   before_action :set_category, only: %i[ show edit update destroy ]
+  before_action :set_select, only: %i[ new edit create update index ]
+  
   def index
     @category = Category.new
+    @categories = Category.all 
   end
 
   def show
@@ -18,6 +21,7 @@ class CategoriesController < ApplicationController
 
   def new
     @category = Category.new
+    @categories = Category.all 
   end
 
   def edit
@@ -26,7 +30,11 @@ end
 
   private
   def category_params
-    params.require(:category).permit(:name)
+    params.require(:category).permit(:name, :visibility, :category_id)
+  end
+
+  def set_select
+    @visibilities = Category.visibilities.keys.to_a
   end
 
   def set_category
