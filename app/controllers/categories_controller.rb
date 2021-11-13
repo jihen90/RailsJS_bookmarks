@@ -8,6 +8,14 @@ class CategoriesController < ApplicationController
   end
 
   def show
+    @bookmark = Bookmark.all
+    @categories = Category.all 
+    @bookmark = Bookmark.find(params[:id])
+    @fetchCategory = {  category_name: @category.name, 
+                        bookmark_name: @bookmark.name,
+                        subcategory: @category.category_id
+                      }
+    render json: @fetchCategory
   end
 
   def create

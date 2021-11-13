@@ -1,2 +1,10 @@
 <h1>Categories</h1>
 <%= render 'form', category: @category %>
+    <% @categories.each do |category| %>
+        <tr>
+        <td><%= category.name %></td>
+        <td><%= link_to 'Show', category %></td>
+        <td><%= link_to 'Edit', edit_category_path(category) %></td>
+        <td><%= link_to 'Destroy', category, method: :delete, data: {confirm: '¿Quieres eliminar la categoría'} %></td>
+        </tr>
+    <% end %>
