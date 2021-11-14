@@ -1,34 +1,38 @@
 <h1>Bookmarks</h1>
 <%= render 'form', bookmark: @bookmark %>
+
+<div class= 'py-3'>
+    <%= link_to 'Go to Categories', categories_path, class: 'btn btn-light' %>
+</div>
 <%= render 'graphics' %>
 
 <p id="notice"><%= notice %></p>
 <br>
 <table class="table table-striped table-bordered table-hover">
-<thead>
-    <tr>
-        <th>Name</th>
-        <th>URL</th>
-        <th>Category</th>
-        <th>Category Visibility</th>
-        <th>Type</th>
-        <th colspan="3"></th>
-    </tr>
-</thead>
-
-<tbody id="bookmarks">
-    <% @bookmarks.each do |bookmark| %>
+    <thead>
         <tr>
-        <td><%= bookmark.name %></td>
-        <td><%= bookmark.url %></td>
-        <td><%= bookmark.category.name %></td>
-        <td><%= bookmark.category.visibility %></td>
-        <td><%= bookmark.type.name %></td>
-        <td><%= link_to 'Show', bookmark, class: 'btn btn-success' %></td>
-        <td><%= link_to 'Edit', edit_bookmark_path(bookmark), class: 'btn btn-warning' %></td>
-        <td><%= link_to 'Destroy', bookmark, method: :delete, class: 'btn btn-danger', data: {confirm: '¿Quieres eliminar el marcador?'} %></td>
+            <th>Name</th>
+            <th>URL</th>
+            <th>Category</th>
+            <th>Category Visibility</th>
+            <th>Type</th>
+            <th colspan="3"></th>
         </tr>
-    <% end %>
-</tbody>
+    </thead>
+
+    <tbody id="bookmarks">
+        <% @bookmarks.each do |bookmark| %>
+            <tr>
+            <td><%= bookmark.name %></td>
+            <td><%= bookmark.url %></td>
+            <td><%= bookmark.category.name %></td>
+            <td><%= bookmark.category.visibility %></td>
+            <td><%= bookmark.type.name %></td>
+            <td><%= link_to 'Show', bookmark, class: 'btn btn-info' %></td>
+            <td><%= link_to 'Edit', edit_bookmark_path(bookmark), class: 'btn btn-warning' %></td>
+            <td><%= link_to 'Destroy', bookmark, method: :delete, class: 'btn btn-danger', data: {confirm: '¿Quieres eliminar el marcador?'} %></td>
+            </tr>
+        <% end %>
+    </tbody>
 </table>
 <br>

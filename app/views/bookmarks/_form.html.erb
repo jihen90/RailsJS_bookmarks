@@ -10,28 +10,28 @@
         </div>  
     <% end %>
 
-    <div class="field">    
+    <div class="field py-1">    
         <%= form.label :name %>    
         <%= form.text_field :name %>  
     </div>
 
-    <div class="field">    
+    <div class="field py-1">    
         <%= form.label :url %>    
         <%= form.text_field :url %>  
     </div>
 
-    <div class="field">
+    <div class="field py-1">
         <%= form.label :category_id %>
         <%= form.collection_select :category_id, @categories, :id, :name%>
     </div>
 
-    <div class="field">
+    <div class="field py-1">
         <%= form.label :type_id %>
         <%= form.collection_select :type_id, @types, :id, :name%>
     </div>
 
-    <div class="actions">    
-    <%= form.submit class: 'btn btn-primary', data: {confirm: '¿Quieres guardar esta URL?'} %>  
+    <div class="actions py-3">    
+    <%= form.submit class: 'btn btn-success', data: {confirm: '¿Quieres guardar esta URL?'} %>  
     </div>
 
 <% end %>

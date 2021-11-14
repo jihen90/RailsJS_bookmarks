@@ -4,9 +4,14 @@ class CategoriesController < ApplicationController
   
   def index
     @category = Category.new
-    @categories = Category.all 
+    @categories = Category.all
   end
-  
+
+  def results
+    @categories = Category.all
+    @categories = Category.where(category_id: params[:category_id]) if params[:category_id].present?
+  end
+
   def show
     @bookmark = Bookmark.all
     @categories = Category.all 
@@ -22,7 +27,7 @@ class CategoriesController < ApplicationController
     @category = Category.new(category_params)
     respond_to do |format|
       if @category.save!
-        format.html { redirect_to root_path}
+        format.html { redirect_to categories_path}
       end
     end
   end
