@@ -27,7 +27,7 @@ class TypesController < ApplicationController
   def update
     respond_to do |format|
       if @type.update!(type_params)
-        format.html {redirect_to root_path}
+        format.html {redirect_to types_path}
       end
     end
   end
