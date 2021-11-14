@@ -27,6 +27,8 @@ end
   end
 
   def edit
+    @types = Type.all
+    @categories = Category.all
   end
 
   def destroy

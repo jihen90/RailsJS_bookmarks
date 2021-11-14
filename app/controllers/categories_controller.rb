@@ -26,8 +26,10 @@ class CategoriesController < ApplicationController
   def create
     @category = Category.new(category_params)
     respond_to do |format|
-      if @category.save!
+      if @category.save
         format.html { redirect_to categories_path}
+      else
+        format.html { redirect_to categories_path, notice: "Visibility cannot be blank"}
       end
     end
   end
@@ -38,8 +40,29 @@ class CategoriesController < ApplicationController
   end
 
   def edit
+    @categories = Category.all
   end
 end
+
+  def destroy
+    respond_to do |format|
+      if @category.destroy!
+        format.html { redirect_to categories_path, notice: 'Category deleted!' }
+      else
+        format.html { redirect_to categories_path, notice: 'Category could not be deleted' }
+      end
+    end
+  end
+
+  def update
+    respond_to do |format|
+      if @category.update!(category_params)
+        format.html { redirect_to categories_path, notice: 'Category updated' }
+      else
+        format.html { render :edit, status: :unprocessable_entity }
+      end
+    end
+  end
 
   private
   def category_params

@@ -2,6 +2,7 @@ class TypesController < ApplicationController
   before_action :set_type, only: %i[ show edit update destroy ]
   def index
     @type = Type.new
+    @types = Type.all
   end
 
   def show
@@ -24,11 +25,27 @@ class TypesController < ApplicationController
   end
 end
 
+  def destroy
+    @type.destroy
+    respond_to do |format|
+      format.html { redirect_to types_path}
+      format.json { head :no_content }
+    end
+  end
+
+  def update
+    respond_to do |format|
+      if @type.update!(type_params)
+        format.html {redirect_to root_path}
+      end
+  end
+end
+
   private
   def type_params
     params.require(:type).permit(:name)
   end
 
   def set_type
-    @category = Type.find(params[:id])
+    @type = Type.find(params[:id])
   end

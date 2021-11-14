@@ -1,9 +1,10 @@
 class Category < ApplicationRecord
     belongs_to :category, optional: true
-    has_many :bookmarks
+    has_many :bookmarks, dependent: :destroy
     enum visibility: [ :statePublic, :statePrivate ]
+    validates :visibility, presence: true
 
-    #Method to find subcategories from a category
+    #Method to find subcategories to JSON
     def subcategories(object)
         @subcategories = []
         object.each do |c| 
@@ -11,17 +12,12 @@ class Category < ApplicationRecord
             @subcategories << c.name
             end
         end
-        return @subcategories
+        return @subcategories unless @subcategories == []
     end
 
-    #Method to find related categories and find their subcategories
-    def findrelative(subCat)
-        if self.category_id != nil
-            self.subcategories(subCat)
-        else
-            self.subcategories(subCat)
-        end
+    #Method to find subcategories to HTML
+    def findrelative(subcat)
+        self.subcategories(subcat)
     end
-
 
 end
