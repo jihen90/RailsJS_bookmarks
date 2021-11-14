@@ -12,16 +12,6 @@ class BookmarksController < ApplicationController
   def show
   end
 
-  def create
-    @bookmarks = Bookmark.all
-    @bookmark = Bookmark.new(bookmark_params)
-    respond_to do |format|
-    if @bookmark.save!
-    format.js {render nothing: true}
-    end
-  end
-end
-
   def new
     @bookmark = Bookmark.new
   end
@@ -29,6 +19,24 @@ end
   def edit
     @types = Type.all
     @categories = Category.all
+  end
+
+  def create
+    @bookmarks = Bookmark.all
+    @bookmark = Bookmark.new(bookmark_params)
+    respond_to do |format|
+      if @bookmark.save!
+      format.js {render nothing: true}
+      end
+    end
+  end
+
+  def update
+    respond_to do |format|
+      if @bookmark.update!(bookmark_params)
+        format.html {redirect_to root_path}
+      end
+    end
   end
 
   def destroy
@@ -39,20 +47,14 @@ end
     end
   end
 
-  def update
-    respond_to do |format|
-      if @bookmark.update!(bookmark_params)
-        format.html {redirect_to root_path}
-      end
-  end
-end
-
   private
-  def bookmark_params
-    params.require(:bookmark).permit(:name, :url, :category_id, :type_id)
-  end
 
   def set_bookmark
     @bookmark = Bookmark.find(params[:id])
   end
+
+  def bookmark_params
+    params.require(:bookmark).permit(:name, :url, :category_id, :type_id)
+  end
+  
 end

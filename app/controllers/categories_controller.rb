@@ -23,17 +23,6 @@ class CategoriesController < ApplicationController
     render json: @fetchCategory
   end
 
-  def create
-    @category = Category.new(category_params)
-    respond_to do |format|
-      if @category.save
-        format.html { redirect_to categories_path}
-      else
-        format.html { redirect_to categories_path, notice: "Visibility cannot be blank"}
-      end
-    end
-  end
-
   def new
     @category = Category.new
     @categories = Category.all 
@@ -42,14 +31,14 @@ class CategoriesController < ApplicationController
   def edit
     @categories = Category.all
   end
-end
 
-  def destroy
+  def create
+    @category = Category.new(category_params)
     respond_to do |format|
-      if @category.destroy!
-        format.html { redirect_to categories_path, notice: 'Category deleted!' }
+      if @category.save
+        format.html { redirect_to categories_path}
       else
-        format.html { redirect_to categories_path, notice: 'Category could not be deleted' }
+        format.html { redirect_to categories_path, notice: "Visibility cannot be blank"}
       end
     end
   end
@@ -64,7 +53,22 @@ end
     end
   end
 
+  def destroy
+    respond_to do |format|
+      if @category.destroy!
+        format.html { redirect_to categories_path, notice: 'Category deleted!' }
+      else
+        format.html { redirect_to categories_path, notice: 'Category could not be deleted' }
+      end
+    end
+  end
+
   private
+
+  def set_category
+    @category = Category.find(params[:id])
+  end
+
   def category_params
     params.require(:category).permit(:name, :visibility, :category_id)
   end
@@ -73,6 +77,4 @@ end
     @visibilities = Category.visibilities.keys.to_a
   end
 
-  def set_category
-    @category = Category.find(params[:id])
-  end
+end

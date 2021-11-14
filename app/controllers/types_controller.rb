@@ -8,22 +8,29 @@ class TypesController < ApplicationController
   def show
   end
 
-  def create
-    @type = Type.new(type_params)
-    respond_to do |format|
-      if @type.save!
-        format.html { redirect_to root_path}
-      end
-    end
-  end
-
   def new
     @type = Type.new
   end
 
   def edit
   end
-end
+
+  def create
+    @type = Type.new(type_params)
+    respond_to do |format|
+      if @type.save!
+        format.html { redirect_to types_path}
+      end
+    end
+  end
+
+  def update
+    respond_to do |format|
+      if @type.update!(type_params)
+        format.html {redirect_to root_path}
+      end
+    end
+  end
 
   def destroy
     @type.destroy
@@ -33,19 +40,14 @@ end
     end
   end
 
-  def update
-    respond_to do |format|
-      if @type.update!(type_params)
-        format.html {redirect_to root_path}
-      end
-  end
-end
-
   private
-  def type_params
-    params.require(:type).permit(:name)
-  end
 
   def set_type
     @type = Type.find(params[:id])
   end
+
+  def type_params
+    params.require(:type).permit(:name)
+  end
+  
+end

@@ -1,6 +1,7 @@
 class Category < ApplicationRecord
     belongs_to :category, optional: true
     has_many :bookmarks, dependent: :destroy
+    
     enum visibility: [ :statePublic, :statePrivate ]
     validates :visibility, presence: true
 
