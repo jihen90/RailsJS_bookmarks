@@ -13,8 +13,7 @@ class CategoriesController < ApplicationController
   end
 
   def show
-    @bookmark = Bookmark.all
-    @categories = Category.all 
+    @categories = Category.includes(:bookmarks) 
     @bookmark = Bookmark.find(params[:id])
     @fetchCategory = {  category_name: @category.name, 
                         bookmark_name: @bookmark.name,
